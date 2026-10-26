@@ -178,11 +178,11 @@ application.register("copy", CopyController);
 import CountUpController from "./count_up_controller";
 application.register("count-up", CountUpController);
 
-import CountdownClockController from "./countdown_clock_controller";
-application.register("countdown-clock", CountdownClockController);
-
 import CountdownController from "./countdown_controller";
 application.register("countdown", CountdownController);
+
+import ConfettiController from "./confetti_controller";
+application.register("confetti", ConfettiController);
 
 import CurveDrawController from "./curve_draw_controller";
 application.register("curve-draw", CurveDrawController);
@@ -210,9 +210,6 @@ application.register("discover-rail-panel", DiscoverRailPanelController);
 
 import DismissableController from "./dismissable_controller";
 application.register("dismissable", DismissableController);
-
-import TopBannerController from "./top_banner_controller";
-application.register("top-banner", TopBannerController);
 
 import EmojiPickerController from "./emoji_picker_controller";
 application.register("emoji-picker", EmojiPickerController);

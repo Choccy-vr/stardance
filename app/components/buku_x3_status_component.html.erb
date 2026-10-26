@@ -60,6 +60,11 @@
         <% end %>
       </div>
     </div>
+    <% if ship_cta? %>
+      <div class="buku-x3-status__ctas">
+        <%= render ActionButtonComponent.new(text: "Ship your project", href: ship_path, leading_icon: "icons/rocket_centered.png", size: :small, variant: :primary) %>
+      </div>
+    <% end %>
     <%= content %>
   <% end %>
 </section>

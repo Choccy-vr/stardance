@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   include OnboardingResumable
-  discover_rail_widgets :sticker_promo, :streak, :terra_portal, :forge_promo, :mipmap_promo, :day_one_of_promo, :feedback_promo, :upcoming_events, :referral, :daily_roll
+  discover_rail_widgets :clearance_sale, :sticker_promo, :streak, :terra_portal, :forge_promo, :mipmap_promo, :day_one_of_promo, :feedback_promo, :upcoming_events, :referral, :daily_roll
 
   before_action :resume_or_expire_onboarding!, only: :index, if: -> { current_user.present? }
 
@@ -10,7 +10,10 @@ class HomeController < ApplicationController
     @welcoming = params[:welcome] == "1" && current_user.present? && !current_user.has_dismissed?("home_intro")
     @body_class += " home-welcoming" if @welcoming
 
-    load_composer if current_user.present?
+    if current_user.present?
+      load_composer
+      @ship_path = @composer_projects.first ? project_path(@composer_projects.first) : profile_projects_path(current_user.display_name)
+    end
     if policy(BukuX3::Event).leaderboard?
       leaderboard = BukuX3::Leaderboard.new(BukuX3::Event.current)
       @buku_teams = leaderboard.teams

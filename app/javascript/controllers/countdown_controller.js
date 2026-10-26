@@ -5,15 +5,21 @@ import { serverClock } from "../lib/server_clock.js";
 // display stays current; includes days for longer windows and clamps at zero.
 // With the clock value set it ticks every second as DD:HH:MM:SS instead, each
 // digit in its own span so CSS can give proportional fonts fixed-width slots.
+// With seconds set it ticks every second as plain text ("1d 04:12:09").
 export default class extends Controller {
-  static values = { resetAt: String, expiredText: String, clock: Boolean };
+  static values = {
+    resetAt: String,
+    expiredText: String,
+    clock: Boolean,
+    seconds: Boolean,
+  };
 
   connect() {
     this.unsubscribeClock = serverClock.subscribe(() => this.render());
     this.render();
     this.timer = setInterval(
       () => this.render(),
-      this.clockValue ? 1000 : 30_000,
+      this.clockValue || this.secondsValue ? 1000 : 30_000,
     );
   }
 
@@ -49,6 +55,13 @@ export default class extends Controller {
             .join(""),
         )
         .join(":");
+      return;
+    }
+    if (this.secondsValue) {
+      const clock = [hours, mins, secs % 60]
+        .map((n) => String(n).padStart(2, "0"))
+        .join(":");
+      this.element.textContent = days > 0 ? `${days}d ${clock}` : clock;
       return;
     }
     this.element.textContent =

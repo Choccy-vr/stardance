@@ -1375,7 +1375,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_25_120000) do
     t.string "requires_achievement", default: [], array: true
     t.boolean "requires_ship", default: false
     t.boolean "requires_verification_call", default: false, null: false
+    t.datetime "sale_ends_at"
+    t.integer "sale_min_percentage", default: 0, null: false
+    t.string "sale_name"
     t.integer "sale_percentage"
+    t.datetime "sale_starts_at"
+    t.integer "sale_step_percentage", default: 0, null: false
     t.boolean "show_image_in_shop", default: false
     t.boolean "show_in_carousel"
     t.integer "site_action"
